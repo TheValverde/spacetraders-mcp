@@ -89,6 +89,44 @@ uv run src/main.py
 docker run --env-file .env -p 8050:8050 spacetraders-mcp
 ```
 
+## Running on Linux (Detached Docker)
+
+To run the MCP server on Linux in detached mode using Docker:
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/TheValverde/spacetraders-mcp.git
+   cd spacetraders-mcp
+   ```
+2. **Create your .env file:**
+   - Copy `.env.example` to `.env` and add your SpaceTraders API key.
+   - Example:
+     ```bash
+     cp .env.example .env
+     # Edit .env and set SPACETRADERS_API_KEY=your-api-key-here
+     ```
+3. **Build the Docker image:**
+   ```bash
+   docker build -t spacetraders-mcp .
+   ```
+4. **Run the server in detached mode:**
+   ```bash
+   docker run -d --env-file .env -p 8050:8050 spacetraders-mcp
+   ```
+5. **Check that the server is running:**
+   ```bash
+   docker ps
+   # You should see 'spacetraders-mcp' in the list
+   ```
+6. **Access the server:**
+   - Open your browser or client to: http://localhost:8050
+
+To stop the server:
+```bash
+docker ps  # Find the container ID
+docker stop <container_id>
+```
+
 ## MCP Integration
 
 This server exposes SpaceTraders API endpoints as MCP tools. You can connect to it from any MCP-compatible client. Example configuration (update URL/port as needed):

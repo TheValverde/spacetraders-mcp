@@ -44,8 +44,8 @@ See `TODO.md` for a detailed checklist of implemented and missing endpoints.
 
 2. Clone this repository:
    ```bash
-   git clone <YOUR_REPO_URL>
-   cd <YOUR_PROJECT_DIR>
+   git clone https://github.com/TheValverde/spacetraders-mcp.git
+   cd spacetraders-mcp
    ```
 
 3. Install dependencies:

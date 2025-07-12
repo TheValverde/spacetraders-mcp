@@ -9,7 +9,7 @@
 ## Agents
 - [x] GET /agent - Get Agent (View_Agent_Details)
 - [x] GET /agents - List Agents (List_Agents)
-- [ ] GET /agents/{agentSymbol} - Get Public Agent
+- [x] GET /agents/{agentSymbol} - Get Public Agent
 
 ## Contracts
 - [x] GET /contracts - List Contracts (List_Contracts)

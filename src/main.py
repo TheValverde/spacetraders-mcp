@@ -1631,6 +1631,34 @@ async def List_Agents(ctx: Context, agent_symbol: str) -> str:
         return f"Error listing agents: {str(e)}"
 
 @mcp.tool()
+async def Get_Public_Agent(ctx: Context, agent_symbol: str) -> str:
+    """Get public details for a specific agent by symbol.
+    
+    Args:
+        agent_symbol: The symbol/callsign of the agent to look up
+    """
+    check_initialization(ctx)
+    try:
+        response = ctx.request_context.lifespan_context.client.make_request(
+            'GET',
+            f'agents/{agent_symbol}'
+        )
+        if response.status_code == 200:
+            agent_data = response.json().get("data", {})
+            return json.dumps({
+                "symbol": agent_data.get("symbol"),
+                "headquarters": agent_data.get("headquarters"),
+                "credits": agent_data.get("credits"),
+                "startingFaction": agent_data.get("startingFaction"),
+                "shipCount": agent_data.get("shipCount")
+            }, indent=2)
+        else:
+            error_message = response.json().get("error", {}).get("message", "Unknown error")
+            return f"Failed to get public agent details: {error_message} (Status code: {response.status_code})"
+    except Exception as e:
+        return f"Error retrieving public agent details: {str(e)}"
+
+@mcp.tool()
 async def Refine_Ship(ctx: Context, agent_symbol: str, ship_symbol: str, produce: str) -> str:
     """Attempt to refine raw materials on your ship.
     

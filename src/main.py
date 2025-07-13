@@ -1826,6 +1826,34 @@ async def Get_Ship_Cooldown(ctx: Context, agent_symbol: str, ship_symbol: str) -
     except Exception as e:
         return f"Error getting ship cooldown: {str(e)}"
 
+@mcp.tool()
+async def Create_Survey(ctx: Context, agent_symbol: str, ship_symbol: str) -> str:
+    """Create a survey on a waypoint using a ship with a Surveyor mount.
+    Args:
+        agent_symbol: The symbol/callsign of the agent
+        ship_symbol: The symbol of the ship to use for surveying
+    """
+    check_initialization(ctx)
+    try:
+        response = ctx.request_context.lifespan_context.client.make_request(
+            'POST',
+            f'my/ships/{ship_symbol}/survey',
+            agent_symbol=agent_symbol
+        )
+        if response.status_code == 201:
+            data = response.json().get("data", {})
+            cooldown = data.get("cooldown", {})
+            surveys = data.get("surveys", [])
+            return json.dumps({
+                "cooldown": cooldown,
+                "surveys": surveys
+            }, indent=2)
+        else:
+            error_message = response.json().get("error", {}).get("message", "Unknown error")
+            return f"Failed to create survey: {error_message} (Status code: {response.status_code})"
+    except Exception as e:
+        return f"Error creating survey: {str(e)}"
+
 async def main():
     """Main entry point for the MCP server."""
     transport = os.getenv("TRANSPORT", "sse")

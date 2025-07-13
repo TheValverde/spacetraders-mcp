@@ -142,3 +142,64 @@ For each tool, we will:
 
 **Conclusion:**
 - The tool is functionally correct and provides the most important market data, but could be improved for completeness and robustness. 
+
+### Tool: Get_Public_Agent
+
+**Mapped Endpoint:** `GET /agents/{agentSymbol}`
+
+**OpenAPI Reference:**
+- Path: `/agents/{agentSymbol}`
+- Method: GET
+- Security: None required (public endpoint)
+- Response: 200 with `{ data: PublicAgent }`
+- PublicAgent fields: `symbol`, `headquarters`, `credits`, `startingFaction`, `shipCount`
+
+**Tool Implementation Summary:**
+- Accepts `agent_symbol` as an argument.
+- Calls `GET /agents/{agentSymbol}` using the SpaceTraders client.
+- On success, returns a JSON object with: `symbol`, `headquarters`, `credits`, `startingFaction`, `shipCount` (all required by schema).
+- Handles error and exception cases, returning error messages as needed.
+
+**Verification:**
+- ✅ Uses correct endpoint and HTTP method.
+- ✅ No authentication required (matches schema).
+- ✅ Returns all required fields from the PublicAgent schema.
+- ✅ Handles error and success responses as per API docs.
+- ⚠️ Does not include extra fields (none present in schema for this endpoint).
+
+**Conclusion:**
+- The tool is a correct and complete implementation of the `/agents/{agentSymbol}` endpoint for fetching public agent details.
+- No issues found. The tool is robust and matches the OpenAPI schema.
+
+### Tool: Create_Survey
+
+**Mapped Endpoint:** `POST /my/ships/{shipSymbol}/survey`
+
+**OpenAPI Reference:**
+- Path: `/my/ships/{shipSymbol}/survey`
+- Method: POST
+- Security: Requires AgentToken (bearer)
+- Path parameter: `shipSymbol` (string, required)
+- Response: 201 with `{ data: { cooldown: Cooldown, surveys: [Survey] } }`
+- Survey fields: `signature`, `symbol`, `deposits`, `expiration`, `size`
+- Cooldown: standard cooldown object
+- Description: Ship must have a Surveyor mount. Surveys are used for resource extraction and expire after a period of time or after being exhausted.
+
+**Tool Implementation Summary:**
+- Accepts `agent_symbol` and `ship_symbol` as arguments.
+- Calls `POST /my/ships/{shipSymbol}/survey` using the agent's token.
+- On success (201), returns a JSON object with `cooldown` and `surveys` (as returned by the API).
+- Handles error and exception cases, returning error messages as needed.
+
+**Verification:**
+- ✅ Uses correct endpoint and HTTP method.
+- ✅ Requires and uses AgentToken for authentication.
+- ✅ Accepts required path parameter (`shipSymbol`).
+- ✅ Returns both `cooldown` and `surveys` as per schema.
+- ✅ Handles error and success responses as per API docs.
+- ⚠️ Does not validate that the ship has a Surveyor mount (relies on API to enforce this).
+- ⚠️ Does not parse or format the survey objects beyond returning the API response (which is acceptable for a generic tool).
+
+**Conclusion:**
+- The tool is a correct and complete implementation of the `/my/ships/{shipSymbol}/survey` endpoint for creating surveys.
+- No critical issues. The tool relies on the API for mount validation and returns the full response for maximum flexibility. 

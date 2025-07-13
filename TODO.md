@@ -32,7 +32,7 @@
 - [x] POST /my/ships/{shipSymbol}/chart - Create Chart (Chart_Waypoint)
 - [x] GET /my/ships/{shipSymbol}/cooldown - Get Ship Cooldown (Get_Ship_Cooldown)
 - [x] POST /my/ships/{shipSymbol}/dock - Dock Ship (Dock_Ship)
-- [ ] POST /my/ships/{shipSymbol}/survey - Create Survey
+- [x] POST /my/ships/{shipSymbol}/survey - Create Survey (Create_Survey, verified)
 - [x] POST /my/ships/{shipSymbol}/extract - Extract Resources (Extract_Resources)
 - [ ] POST /my/ships/{shipSymbol}/siphon - Siphon Resources
 - [ ] POST /my/ships/{shipSymbol}/extract/survey - Extract Resources with Survey

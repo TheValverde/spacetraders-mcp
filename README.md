@@ -118,8 +118,6 @@ To run the MCP server on Linux in detached mode using Docker:
    docker ps
    # You should see 'spacetraders-mcp' in the list
    ```
-6. **Access the server:**
-   - Open your browser or client to: http://localhost:8050
 
 To stop the server:
 ```bash

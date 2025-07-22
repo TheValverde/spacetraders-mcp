@@ -434,7 +434,8 @@ async def Accept_Contract(ctx: Context, agent_symbol: str, contract_id: str) -> 
         response = ctx.request_context.lifespan_context.client.make_request(
             'POST',
             f'my/contracts/{contract_id}/accept',
-            agent_symbol=agent_symbol
+            agent_symbol=agent_symbol,
+            data='{}'  # Empty JSON object to satisfy Content-Type requirement
         )
         
         if response.status_code == 200:
